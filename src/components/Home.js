@@ -2,31 +2,24 @@ import React, {Component} from 'react'
 import axios from 'axios';
 import { connect } from 'react-redux';
 import '../assets/scss/home.scss';
-import { setMovie } from '../actions';
+import { setMovie, termChanged, setSearchResults } from '../actions';
 
 
 class Home extends Component {
   constructor(props){
     super(props)
-    this.state = {
-      term: 'why him',
-      moviesList: [],
-    }
     this.readMoreClicked = this.readMoreClicked.bind(this)
   }
-  componentDidMount(){
-      this.searchArtwork();
-  }
   termChanged(termVal){
-    this.setState({term: termVal.target.value})
+    this.props.termChanged(termVal.target.value);
   }
   searchArtwork(){
-    let urlWithParams = "https://itunes.apple.com/search?term=" + this.state.term + "&media=movie";
+    let urlWithParams = "https://itunes.apple.com/search?term=" + this.props.term + "&media=movie";
     axios.get(urlWithParams)
     .then((response) => {
       if (response && response.data){
         if (response.data.results.length > 0){
-          this.setState({moviesList: response.data.results})
+          this.props.setSearchResults(response.data.results);
         }
         else {
           //TODO: show no results message
@@ -47,8 +40,9 @@ class Home extends Component {
     })
   }
   renderMovies(){
-    if (this.state.moviesList.length > 0){
+    if (this.props.searchResultList.length > 0){
         return(
+        <div className="table-responsive">
         <table className="table">
           <thead>
           <tr>
@@ -60,7 +54,7 @@ class Home extends Component {
           </tr>
           </thead>
           <tbody>
-        {this.state.moviesList.map((movie, index) => {
+        {this.props.searchResultList.map((movie, index) => {
             return (
               <tr key={index} className="movie">
               <td className="index"><h4>{index + 1}</h4></td>
@@ -69,13 +63,14 @@ class Home extends Component {
                 <span>{movie.trackCensoredName}</span>
               </td>
               <td className="genre"> {movie.primaryGenreName}</td>
-              <td className="price"><span>{movie.trackPrice}$</span></td>
+              <td className="price"><span>{movie.trackPrice} </span><small>{movie.currency}</small></td>
               <td className="read-more"><button className="btn btn-primary" onClick={() => this.readMoreClicked(movie)}>Read More</button></td>
               </tr>
             )
           })}
           </tbody>
         </table>
+        </div>
     )
     }
   }
@@ -85,7 +80,7 @@ class Home extends Component {
         <div className="row">
         <div id="custom-search-input">
               <div className="input-group col-md-12">
-                  <input value={this.state.term} onChange={this.termChanged.bind(this)} type="text" className="form-control input-lg" placeholder="Lets find some artwork" />
+                  <input value={this.props.term} onChange={this.termChanged.bind(this)} type="text" className="form-control input-lg" placeholder="Lets find some artwork" />
                   <span className="input-group-btn">
                       <button className="btn btn-info btn-lg" type="button" onClick={() => {this.searchArtwork()}}>
                           <i className="glyphicon glyphicon-search"></i>
@@ -99,5 +94,11 @@ class Home extends Component {
     );
   }
 }
-
-export default connect(null, { setMovie })(Home);
+function mapStateToProps({main}){
+  const { searchResultList, term } = main;
+  return {
+    searchResultList: searchResultList,
+    term: term
+  }
+}
+export default connect(mapStateToProps, { setMovie, setSearchResults, termChanged })(Home);

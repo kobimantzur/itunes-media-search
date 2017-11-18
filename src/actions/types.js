@@ -1,1 +1,3 @@
 export const SET_MOVIE = 'SET_MOVIE';
+export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
+export const TERM_CHANGED = 'TERM_CHANGED';
