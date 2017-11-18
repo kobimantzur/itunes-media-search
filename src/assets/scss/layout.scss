@@ -1,7 +1,19 @@
 body {
   background: #edebe6;
-  
+
   .page{
     margin-top: 30px;
+    .container{
+      .alert{
+        margin-top:10px;
+      }
+      .loader{
+        div{
+          margin-left:auto;
+          margin-right:auto;
+          display:block;
+        }
+      }
+    }
   }
 }

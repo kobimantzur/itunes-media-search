@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
-import axios from 'axios';
 import { connect } from 'react-redux';
 import '../assets/scss/home.scss';
-import { setMovie, termChanged, setSearchResults } from '../actions';
-
+import { setMovie, termChanged, searchArtwork } from '../actions';
+import ReactLoading from 'react-loading';
 
 class Home extends Component {
   constructor(props){
@@ -14,24 +13,7 @@ class Home extends Component {
     this.props.termChanged(termVal.target.value);
   }
   searchArtwork(){
-    let urlWithParams = "https://itunes.apple.com/search?term=" + this.props.term + "&media=movie";
-    axios.get(urlWithParams)
-    .then((response) => {
-      if (response && response.data){
-        if (response.data.results.length > 0){
-          this.props.setSearchResults(response.data.results);
-        }
-        else {
-          //TODO: show no results message
-        }
-      }
-      else {
-        //TODO: show general error
-      }
-    })
-    .catch((ex) => {
-
-    })
+    this.props.searchArtwork(this.props.term);
   }
   readMoreClicked(movie){
     this.props.setMovie(movie)
@@ -56,16 +38,16 @@ class Home extends Component {
           <tbody>
         {this.props.searchResultList.map((movie, index) => {
             return (
-              <tr key={index} className="movie">
-              <td className="index"><h4>{index + 1}</h4></td>
-              <td className="name">
-                <img src={movie.artworkUrl60} />
-                <span>{movie.trackCensoredName}</span>
-              </td>
-              <td className="genre"> {movie.primaryGenreName}</td>
-              <td className="price"><span>{movie.trackPrice} </span><small>{movie.currency}</small></td>
-              <td className="read-more"><button className="btn btn-primary" onClick={() => this.readMoreClicked(movie)}>Read More</button></td>
-              </tr>
+                <tr key={index} className="movie">
+                <td className="index"><h4>{index + 1}</h4></td>
+                <td className="name">
+                  <img src={movie.artworkUrl60} />
+                  <span>{movie.trackCensoredName}</span>
+                </td>
+                <td className="genre"> {movie.primaryGenreName}</td>
+                <td className="price"><span>{movie.trackPrice} </span><small>{movie.currency}</small></td>
+                <td className="read-more"><button className="btn btn-primary" onClick={() => this.readMoreClicked(movie)}>Read More</button></td>
+                </tr>
             )
           })}
           </tbody>
@@ -73,14 +55,30 @@ class Home extends Component {
         </div>
     )
     }
+    else if(this.props.isLoading){
+      return(
+        <div className="loader">
+          <ReactLoading type="bars" color="#444" />
+        </div>
+      )
+    }
+    else if(this.props.errorMessage.length > 0){
+      return(
+        <div>
+          <h2>Oops..</h2>
+          <div className="alert alert-danger"> {this.props.errorMessage} </div>
+        </div>
+      )
+    }
   }
   render() {
     return(
       <div className="container home">
         <div className="row">
-        <div id="custom-search-input">
+        <h1>Itunes Movies Search</h1>
+        <div className="search">
               <div className="input-group col-md-12">
-                  <input value={this.props.term} onChange={this.termChanged.bind(this)} type="text" className="form-control input-lg" placeholder="Lets find some artwork" />
+                  <input value={this.props.term} onChange={this.termChanged.bind(this)} type="text" className="form-control input-lg" placeholder="Let's search a movie" />
                   <span className="input-group-btn">
                       <button className="btn btn-info btn-lg" type="button" onClick={() => {this.searchArtwork()}}>
                           <i className="glyphicon glyphicon-search"></i>
@@ -95,10 +93,12 @@ class Home extends Component {
   }
 }
 function mapStateToProps({main}){
-  const { searchResultList, term } = main;
+  const { searchResultList, term, errorMessage, isLoading } = main;
   return {
     searchResultList: searchResultList,
-    term: term
+    term: term,
+    errorMessage: errorMessage,
+    isLoading: isLoading
   }
 }
-export default connect(mapStateToProps, { setMovie, setSearchResults, termChanged })(Home);
+export default connect(mapStateToProps, { setMovie, termChanged, searchArtwork })(Home);

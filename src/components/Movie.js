@@ -3,25 +3,18 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../assets/scss/movie.scss';
-const parseQueryString = require('query-string');
-import { setMovie } from '../actions';
+import { setMovie, findTrackById } from '../actions';
+import ReactLoading from 'react-loading';
 
 class Movie extends Component {
+
   componentWillMount(){
-    let ITUNES_FIND_TRACK_BY_ID = 'https://itunes.apple.com/lookup?id=';
     if (!this.props.selectedMovie){
       let trackId = this.props.location.pathname.split('/')[2];
-      axios.get(ITUNES_FIND_TRACK_BY_ID + trackId)
-      .then((response) => {
-        if (response && response.data.resultCount == 1){
-          this.props.setMovie(response.data.results[0])
-        }
-        else{
-          //TODO: show general error
-        }
-      })
+      this.props.findTrackById(trackId);
     }
   }
+
   renderMovieDetails(){
     if (this.props.selectedMovie){
       let artworkImageUrl = this.props.selectedMovie.artworkUrl100.split("/source")[0] + '/source/300x300.jpg';
@@ -68,9 +61,19 @@ class Movie extends Component {
       </div>
       )
     }
+    else if(this.props.isLoading){
+      return(
+      <div className="loader">
+        <ReactLoading type="bars" color="#444" />
+      </div>
+      )
+    }
     else{
       return(
-      <h2>Loading...</h2>
+      <div>
+        <h2>Oops..</h2>
+        <div className="alert alert-danger"> {this.props.errorMessage} </div>
+      </div>
       )
     }
   }
@@ -83,9 +86,11 @@ class Movie extends Component {
   }
 }
 function mapStateToProps({main}){
-  const { selectedMovie } = main;
+  const { selectedMovie, errorMessage, isLoading } = main;
   return {
-    selectedMovie: selectedMovie
+    selectedMovie: selectedMovie,
+    errorMessage: errorMessage,
+    isLoading: isLoading
   }
 }
-export default connect(mapStateToProps, { setMovie })(Movie);
+export default connect(mapStateToProps, { setMovie, findTrackById })(Movie);
