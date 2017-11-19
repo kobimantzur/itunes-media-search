@@ -7,4 +7,4 @@
 1. `git clone https://github.com/kobimantzur/itunes-media-search.git`
 2. `cd itunes-media-search`
 3. `npm install`
-4. `Run `node app.js`
+4. `node app.js`
