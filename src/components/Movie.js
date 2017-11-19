@@ -17,7 +17,7 @@ class Movie extends Component {
 
   renderMovieDetails(){
     if (this.props.selectedMovie){
-      let artworkImageUrl = this.props.selectedMovie.artworkUrl100.split("/source")[0] + '/source/300x300.jpg';
+      let artworkImageUrl = this.props.selectedMovie.artworkUrl100.split("/source")[0] + '/source/200x200.jpg';
       return(
       <div className="row">
         <aside className="col-xs-12 col-sm-3">
@@ -28,7 +28,7 @@ class Movie extends Component {
         </aside>
         <div className="col-xs-12 col-sm-9 movie-details">
           <h2>{this.props.selectedMovie.trackCensoredName}</h2>
-          <h3>About the film</h3>
+          <h3>About</h3>
           <p>{this.props.selectedMovie.longDescription}</p>
           <h3>Information</h3>
           <table className="table">

@@ -1,19 +1,23 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import '../assets/scss/home.scss';
-import { setMovie, termChanged, searchArtwork } from '../actions';
+import { setMovie, termChanged, searchArtwork, setSearchType } from '../actions';
 import ReactLoading from 'react-loading';
 
 class Home extends Component {
   constructor(props){
     super(props)
     this.readMoreClicked = this.readMoreClicked.bind(this)
+    this.handleSearchType = this.handleSearchType.bind(this);
   }
   termChanged(termVal){
     this.props.termChanged(termVal.target.value);
   }
+  handleSearchType(event){
+    this.props.setSearchType(event.target.value);
+  }
   searchArtwork(){
-    this.props.searchArtwork(this.props.term);
+    this.props.searchArtwork(this.props.term, this.props.searchType);
   }
   readMoreClicked(movie){
     this.props.setMovie(movie)
@@ -77,6 +81,22 @@ class Home extends Component {
       <div className="container home">
         <div className="row">
         <h1>Itunes Movies Search</h1>
+        <div className="radio">
+            <label>
+              <input type="radio"
+              name="movie"
+              onChange={this.handleSearchType}
+              value="movie"
+              checked={this.props.searchType === 'movie'}/> Movie
+            </label>
+            <label>
+              <input type="radio"
+              name="tvShow"
+              value="tvShow"
+              onChange={this.handleSearchType}
+              checked={this.props.searchType === 'tvShow'} /> TV-Show
+            </label>
+          </div>
         <div className="search">
               <div className="input-group col-md-12">
                   <input value={this.props.term} onKeyPress={this.searchKeyPressed.bind(this)} onChange={this.termChanged.bind(this)} type="text" className="form-control input-lg" placeholder="Let's search a movie" />
@@ -94,12 +114,13 @@ class Home extends Component {
   }
 }
 function mapStateToProps({main}){
-  const { searchResultList, term, errorMessage, isLoading } = main;
+  const { searchResultList, term, errorMessage, isLoading, searchType } = main;
   return {
     searchResultList: searchResultList,
     term: term,
     errorMessage: errorMessage,
-    isLoading: isLoading
+    isLoading: isLoading,
+    searchType: searchType
   }
 }
-export default connect(mapStateToProps, { setMovie, termChanged, searchArtwork })(Home);
+export default connect(mapStateToProps, { setMovie, termChanged, searchArtwork, setSearchType })(Home);

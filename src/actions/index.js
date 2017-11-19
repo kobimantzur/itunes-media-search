@@ -6,7 +6,8 @@ import { SET_MOVIE,
   ERROR,
   ITUNES_SEARCH_BY_TERM_URL,
   ITUNES_FIND_TRACK_BY_ID,
-  LOADING } from './types';
+  LOADING,
+  SEARCH_TYPE_CHANGED} from './types';
 
 
 
@@ -35,10 +36,11 @@ export const termChanged = (term) => {
   }
 }
 
-export const searchArtwork = (term) => {
+export const searchArtwork = (term, searchType) => {
   return (dispatch) => {
     dispatch({type: LOADING, payload: true })
-    let urlWithParams = ITUNES_SEARCH_BY_TERM_URL + term + "&media=movie";
+    let media = searchType;
+    let urlWithParams = ITUNES_SEARCH_BY_TERM_URL + term + '&media=' + media;
     axios.get(urlWithParams)
     .then((response) => {
       if (response && response.data){
@@ -73,5 +75,11 @@ export const findTrackById = (trackId) => {
     .catch(() => {
       dispatch({type: ERROR, payload: "An error has occurred, Please try again later"})
     })
+  }
+}
+
+export const setSearchType = (value) => {
+  return (dispatch) => {
+    dispatch({type: SEARCH_TYPE_CHANGED, payload: value})
   }
 }

@@ -1,132 +1,155 @@
 @import './config';
+.home{
 
-h1{
-  @media #{$tablet}{
-
-  }
-  @media #{$mobile}{
-    font-size:25px;
-    text-align:center;
-  }
-}
-.search{
-    padding: 3px;
-    border: solid 1px #E4E4E4;
-    border-radius: 6px;
-    background-color: #fff;
-
-    input {
-      border: 0;
-      box-shadow: none;
+  h1{
+    @media #{$mobile}{
+      font-size:25px;
+      text-align:center;
     }
 
-    button {
-      margin: 2px 0 0 0;
-      background: none;
-      box-shadow: none;
-      border: 0;
-      color: #666666;
-      border-left: solid 1px #ccc;
-      padding: 6px;
+  }
+  .radio{
+    label{
+      margin-left:10px;
+    }
+  }
+  .search{
+      padding: 3px;
+      border: solid 1px #E4E4E4;
+      border-radius: 6px;
+      background-color: #fff;
 
-      &:hover, &:focus{
+      input {
         border: 0;
         box-shadow: none;
-        border-left: solid 1px #ccc;
-        color: #333;
+      }
+
+      button {
+        margin: 2px 0 0 0;
         background: none;
-      }
-    }
+        box-shadow: none;
+        border: 0;
+        color: #666666;
+        border-left: solid 1px #ccc;
+        padding: 6px;
 
-    .glyphicon-search {
-      font-size: 23px;
-    }
-}
-
-.results-table{
-  padding: 20px 0 20px 0;
-  display:table;
-  @media #{$mobile}{
-    display:block;
-  }
-  .head{
-    display: table-header-group;
-    @media #{$mobile}{
-      display:none;
-    }
-  }
-
-  .body{
-    display: table-row-group;
-    @media #{$mobile}{
-      display:block;
-    }
-  }
-
-  .table-row{
-    display: table-row;
-    @media #{$mobile}{
-      display:block;
-    }
-
-    &.movie{
-      @media #{$mobile}{
-        width: 100%;
-        background: #ddd;
-        border-radius: 5px;
-        margin-bottom: 10px;
-        padding: 10px 15px 10px 15px;
-      }
-
-      .name{
-
-          @media #{$mobile}{
-            margin-bottom: 5px;
-          }
-
-           img{
-             border-radius: 4px;
-             width: 40px;
-             padding:0;
-             @media #{$mobile}{
-               width: 30px;
-             }
-           }
-
-           span{
-             padding-top: 8px;
-             @media #{$mobile}{
-               padding-right: 0;
-             }
-           }
-      }
-
-      b{
-        display:none;
-        @media #{$mobile}{
-          display:inline-block;
+        &:hover, &:focus{
+          border: 0;
+          box-shadow: none;
+          border-left: solid 1px #ccc;
+          color: #333;
+          background: none;
         }
       }
 
-      .read-more{
-        text-align:right;
-
+      .glyphicon-search {
+        font-size: 23px;
       }
-    }
   }
 
-  .cell{
-    display: table-cell;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    vertical-align: middle;
+  .results-table{
+
+    padding: 20px 0 20px 0;
+    display:table;
+
     @media #{$mobile}{
       display:block;
-      padding: 0;
     }
 
-  }
+    .head{
+      display: table-header-group;
 
+      @media #{$mobile}{
+        display:none;
+      }
+
+    }
+
+    .body{
+      display: table-row-group;
+
+      @media #{$mobile}{
+        display:block;
+      }
+
+    }
+
+    .table-row{
+      display: table-row;
+
+      @media #{$mobile}{
+        display:block;
+      }
+
+      &.movie{
+
+        @media #{$mobile}{
+          width: 100%;
+          background: #ddd;
+          border-radius: 5px;
+          margin-bottom: 10px;
+          padding: 10px 15px 10px 15px;
+
+        }
+
+        .name{
+
+            @media #{$mobile}{
+              margin-bottom: 5px;
+            }
+
+             img{
+               border-radius: 4px;
+               width: 40px;
+               padding:0;
+
+               @media #{$mobile}{
+                 width: 30px;
+               }
+
+             }
+
+             span{
+               padding-top: 8px;
+
+               @media #{$mobile}{
+                 padding-right: 0;
+               }
+
+             }
+        }
+
+        b{
+          display:none;
+
+          @media #{$mobile}{
+            display:inline-block;
+          }
+
+        }
+
+        .read-more{
+          text-align:right;
+        }
+
+      }
+
+    }
+
+    .cell{
+
+      display: table-cell;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      vertical-align: middle;
+
+      @media #{$mobile}{
+        display:block;
+        padding: 0;
+      }
+
+    }
+  }
 
 }

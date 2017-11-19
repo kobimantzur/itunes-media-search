@@ -3,6 +3,7 @@ export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
 export const TERM_CHANGED = 'TERM_CHANGED';
 export const ERROR = 'ERROR';
 export const LOADING = 'LOADING';
+export const SEARCH_TYPE_CHANGED = 'SEARCH_TYPE_CHANGED';
 
 //URLS
 export const ITUNES_SEARCH_BY_TERM_URL = 'https://itunes.apple.com/search?term=';
