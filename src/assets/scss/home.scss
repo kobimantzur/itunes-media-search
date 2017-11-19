@@ -8,46 +8,50 @@
     }
 
   }
-  .radio{
-    label{
-      margin-left:10px;
-    }
-  }
   .search{
-      padding: 3px;
-      border: solid 1px #E4E4E4;
-      border-radius: 6px;
-      background-color: #fff;
 
-      input {
-        border: 0;
-        box-shadow: none;
+    .radio{
+      label{
+        margin-left:10px;
       }
+    }
 
-      button {
-        margin: 2px 0 0 0;
-        background: none;
-        box-shadow: none;
-        border: 0;
-        color: #666666;
-        border-left: solid 1px #ccc;
-        padding: 6px;
+    .search-bar{
+        padding: 3px;
+        border: solid 1px #E4E4E4;
+        border-radius: 6px;
+        background-color: #fff;
 
-        &:hover, &:focus{
+        input {
           border: 0;
           box-shadow: none;
-          border-left: solid 1px #ccc;
-          color: #333;
-          background: none;
         }
-      }
 
-      .glyphicon-search {
-        font-size: 23px;
-      }
+        button {
+          margin: 2px 0 0 0;
+          background: none;
+          box-shadow: none;
+          border: 0;
+          color: #666666;
+          border-left: solid 1px #ccc;
+          padding: 6px;
+
+          &:hover, &:focus{
+            border: 0;
+            box-shadow: none;
+            border-left: solid 1px #ccc;
+            color: #333;
+            background: none;
+          }
+        }
+
+        .glyphicon-search {
+          font-size: 23px;
+        }
+    }
   }
 
-  .results-table{
+  .results{
 
     padding: 20px 0 20px 0;
     display:table;

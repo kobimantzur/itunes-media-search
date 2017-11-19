@@ -33,7 +33,7 @@ class Home extends Component {
   renderMovies(){
     if (this.props.searchResultList.length > 0){
         return(
-        <div className="table results-table">
+        <div className="table results">
           <div className="head">
             <div className="table-row">
               <div className="cell">NAME</div>
@@ -81,31 +81,33 @@ class Home extends Component {
       <div className="container home">
         <div className="row">
         <h1>Itunes Movies Search</h1>
-        <div className="radio">
-            <label>
-              <input type="radio"
-              name="movie"
-              onChange={this.handleSearchType}
-              value="movie"
-              checked={this.props.searchType === 'movie'}/> Movie
-            </label>
-            <label>
-              <input type="radio"
-              name="tvShow"
-              value="tvShow"
-              onChange={this.handleSearchType}
-              checked={this.props.searchType === 'tvShow'} /> TV-Show
-            </label>
-          </div>
         <div className="search">
-              <div className="input-group col-md-12">
-                  <input value={this.props.term} onKeyPress={this.searchKeyPressed.bind(this)} onChange={this.termChanged.bind(this)} type="text" className="form-control input-lg" placeholder="Let's search a movie" />
-                  <span className="input-group-btn">
-                      <button className="btn btn-info btn-lg" type="button" onClick={() => {this.searchArtwork()}}>
-                          <i className="glyphicon glyphicon-search"></i>
-                      </button>
-                  </span>
-              </div>
+          <div className="radio">
+              <label>
+                <input type="radio"
+                name="movie"
+                onChange={this.handleSearchType}
+                value="movie"
+                checked={this.props.searchType === 'movie'}/> Movie
+              </label>
+              <label>
+                <input type="radio"
+                name="tvShow"
+                value="tvShow"
+                onChange={this.handleSearchType}
+                checked={this.props.searchType === 'tvShow'} /> TV-Show
+              </label>
+            </div>
+          <div className="search-bar">
+                <div className="input-group col-md-12">
+                    <input value={this.props.term} onKeyPress={this.searchKeyPressed.bind(this)} onChange={this.termChanged.bind(this)} type="text" className="form-control input-lg" placeholder="Let's search a movie" />
+                    <span className="input-group-btn">
+                        <button className="btn btn-info btn-lg" type="button" onClick={() => {this.searchArtwork()}}>
+                            <i className="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
           </div>
           {this.renderMovies()}
         </div>
